@@ -1,0 +1,22 @@
+version: '3'
+services:
+  coqui-tts:
+    build: .
+    container_name: coqui-tts
+    networks:
+      - network_public  # Usando sua rede existente
+    ports:
+      - "8000:8000"
+    environment:
+      - REDIS_HOST=redis
+      - POSTGRES_HOST=postgres
+    volumes:
+      - ./app:/app
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.coqui.rule=Host('coqui.escoladoprofissional.com.br')"
+      - "traefik.http.services.coqui.loadbalancer.server.port=8000"
+
+networks:
+  network_public:
+    external: true
