@@ -3,13 +3,15 @@ version: '3'
 services:
   coqui-tts:
     image: ghcr.io/coqui-ai/tts-cpu:latest
-    ports:
-      - "8080:80"  # Mapeie a porta 8080 do host para a porta 80 do container
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.coqui.rule=Host(`coqui.escoladoprofissional.com.br`)"
+      - "traefik.http.services.coqui.loadbalancer.server.port=80"  # Porta interna do container
+    networks:
+      - network_public
     environment:
       - REDIS_HOST=redis  # Se estiver usando o Redis
       - POSTGRES_HOST=postgres  # Se estiver usando o PostgreSQL
-    networks:
-      - network_public
 
 networks:
   network_public:
