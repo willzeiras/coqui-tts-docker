@@ -1,21 +1,15 @@
 version: '3'
+
 services:
   coqui-tts:
-    build: .
-    container_name: ghcr.io/coqui-ai/tts-cpu
-    networks:
-      - network_public  # Usando sua rede existente
+    image: ghcr.io/coqui-ai/tts-cpu:latest  # Ou a tag específica que você deseja usar
     ports:
-      - "8000:8000"
+      - "80:80"  # Mapeie a porta que você deseja expor
     environment:
-      - REDIS_HOST=redis
-      - POSTGRES_HOST=postgres
-    volumes:
-      - ./app:/app
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.coqui.rule=Host('coqui.escoladoprofissional.com.br')"
-      - "traefik.http.services.coqui.loadbalancer.server.port=8000"
+      - REDIS_HOST=redis  # Se estiver usando o Redis
+      - POSTGRES_HOST=postgres  # Se estiver usando o PostgreSQL
+    networks:
+      - network_public
 
 networks:
   network_public:
