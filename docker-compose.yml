@@ -2,9 +2,9 @@ version: '3'
 
 services:
   coqui-tts:
-    image: ghcr.io/coqui-ai/tts-cpu:latest  # Ou a tag específica que você deseja usar
+    image: ghcr.io/coqui-ai/tts-cpu:latest
     ports:
-      - "80:80"  # Mapeie a porta que você deseja expor
+      - "8080:80"  # Mapeie a porta 8080 do host para a porta 80 do container
     environment:
       - REDIS_HOST=redis  # Se estiver usando o Redis
       - POSTGRES_HOST=postgres  # Se estiver usando o PostgreSQL
