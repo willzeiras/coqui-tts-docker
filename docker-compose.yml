@@ -2,7 +2,7 @@ version: '3'
 services:
   coqui-tts:
     build: .
-    container_name: coqui-tts
+    container_name: ghcr.io/coqui-ai/tts-cpu
     networks:
       - network_public  # Usando sua rede existente
     ports:
